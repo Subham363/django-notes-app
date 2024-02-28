@@ -12,7 +12,11 @@ pipeline {
         stage("Build"){
             steps {
                 echo "Building the image"
-                sh "docker build -t my-note-app ."
+                for num in {1..10}
+                do
+                echo "sh "docker build -t my-note-app+$num .""
+                done
+                
             }
         }
         stage("Push to Docker Hub"){
