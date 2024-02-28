@@ -9,14 +9,15 @@ pipeline {
                 git url:"https://github.com/Subham363/django-notes-app.git", branch: "main"
             }
         }
+        stage("Removing existing container"){
+            steps {
+                echo "Removing existing container"
+                sh docker rm -f $(docker ps -a -q)  
+            }
         stage("Build"){
             steps {
                 echo "Building the image"
-                for num in {1..10}
-                do
-                echo "sh "docker build -t my-note-app+$num .""
-                done
-                
+                sh "docker build -t my-note-app ."    
             }
         }
         stage("Push to Docker Hub"){
